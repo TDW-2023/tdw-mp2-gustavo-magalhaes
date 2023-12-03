@@ -32,6 +32,7 @@ const ArtworkDetails = () => {
       const favoriteIds = JSON.parse(favoriteIdsString);
       setFavoriteArtworkIds(favoriteIds);
     }
+    window.scrollTo(0, 0);
   }, [id]);
 
   const handleToggleFavorite = (artworkId) => {

@@ -10,7 +10,8 @@ import Navbar from "./NavBar.js";
 import Cookies from "js-cookie";
 import FavoriteButtonFilled from "../assets/img/star-filled.svg";
 import { Link } from "react-router-dom";
-import { getObjectById } from '../globalComponents/features/DepartmentSlice';
+import { getObjectById } from "../globalComponents/features/DepartmentSlice";
+import FavoriteButton from "../assets/img/free-favourite-icon-2765-thumb.svg";
 
 const Favorites = () => {
   const [allArtworks, setAllArtworks] = useState([]);
@@ -171,7 +172,11 @@ const Favorites = () => {
               style={{ padding: "0.5rem" }}
             />
           </div>
-          No matching artworks found.
+          {search
+            ? "No matching artworks found."
+            : "You don't have any favorites yet. Use the star on the images to add favorites "}
+          <img src={FavoriteButton} alt="Favorite button" />
+          <img src={FavoriteButtonFilled} alt="Favorite button" />
         </h1>
       )}
     </div>
