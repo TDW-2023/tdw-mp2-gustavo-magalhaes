@@ -164,7 +164,6 @@ export const LinkContainer = styled.ul`
   }
 `;
 
-
 export const Link = styled.a`
   color: white;
   text-decoration: none;
@@ -238,16 +237,16 @@ export const ViewMoreButton = styled.button`
   border: none;
   border-radius: 5px;
   box-shadow:
-  0 3px 6px rgba(0, 0, 0, 0.16),
-  0 3px 6px rgba(0, 0, 0, 0.23);
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: #c9d4da;
     box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
+      0 10px 20px rgba(0, 0, 0, 0.19),
+      0 6px 6px rgba(0, 0, 0, 0.23);
   }
 `;
 
@@ -267,6 +266,12 @@ export const ArtworkDetailImage = styled.img`
   width: 50%;
   height: auto;
   margin-right: 2rem;
+
+  @media (max-width: 720px) {
+    width: 90%;
+    height: auto;
+    margin-right: unset;
+  }
 `;
 
 export const ArtworkDetailInfo = styled.div`
