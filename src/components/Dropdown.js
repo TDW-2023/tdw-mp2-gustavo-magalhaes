@@ -6,6 +6,7 @@ import {
   DropdownItem,
   METLogoImage,
 } from "./styles";
+import ChevronDown from "../assets/img/chevron-down.svg";
 
 const Dropdown = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,16 +39,20 @@ const Dropdown = ({ items }) => {
       tabIndex="0"
     >
       <NavItem tabIndex="0">
-        {" "}
         <METLogoImage
           src={require("../assets/img/MET_logo.png")}
           alt="MET's logo"
         />
-        Art Departments
+        ART Departments <img src={ChevronDown} alt="Chevron down" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform .4s' }} />
       </NavItem>
+
       <DropdownContent open={isOpen}>
         {items.map((item) => (
-          <DropdownItem tabIndex="0" key={item.departmentId}>
+          <DropdownItem
+            to={`/department/${item.departmentId}`}
+            tabIndex="0"
+            key={item.departmentId}
+          >
             {item.displayName}
           </DropdownItem>
         ))}
