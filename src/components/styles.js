@@ -57,6 +57,7 @@ export const Navbar = styled.nav`
   box-sizing: border-box;
   box-shadow: 1px 2px 8px #000000;
   position: fixed;
+  z-index: 10;
   top: 0;
 `;
 
@@ -73,6 +74,10 @@ export const NavItem = styled.li`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 720px) {
+    font-size: unset;
+  }
 `;
 
 export const RightAlignedItems = styled.div`
@@ -159,6 +164,7 @@ export const LinkContainer = styled.ul`
   }
 `;
 
+
 export const Link = styled.a`
   color: white;
   text-decoration: none;
@@ -191,6 +197,10 @@ export const ArtworkGrid = styled.div`
   border-radius: 5px;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
   margin: 0 2rem;
+
+  @media (max-width: 720px) {
+    margin: unset;
+  }
 `;
 
 export const ArtworkContainer = styled.div`
@@ -200,7 +210,7 @@ export const ArtworkContainer = styled.div`
   justify-content: center;
   background-color: #fff;
   border-radius: 5px;
-  padding: 10px;
+  padding: 1rem;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
 `;
 
@@ -208,7 +218,7 @@ export const CardTitle = styled.h4`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 20ch; /* Ajuste o número de caracteres desejado */
+  max-width: 20ch;
   color: #000000;
 `;
 
@@ -224,6 +234,7 @@ export const ViewMoreButton = styled.button`
   padding: 0.5em 2em;
   color: #964747;
   background-color: #f3f3f3;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   box-shadow:
@@ -237,5 +248,67 @@ export const ViewMoreButton = styled.button`
     box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.19),
     0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+`;
+
+export const ArtworkDetailContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 2rem;
+
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+`;
+
+export const ArtworkDetailImage = styled.img`
+  width: 50%;
+  height: auto;
+  margin-right: 2rem;
+`;
+
+export const ArtworkDetailInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`;
+
+export const ArtworkDetailTitle = styled.h1`
+  font-size: 2rem;
+  color: #333;
+  margin-top: 1rem;
+  margin-right: 1rem;
+`;
+
+export const ArtworkDetailText = styled.p`
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 0.5rem;
+`;
+
+export const BackButton = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #f8f9fa;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+`;
+
+export const Author = styled.h5`
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, 200%);
+  color: #ffffff;
+  text-align: center;
+
+  @media (max-width: 720px) {
+    transform: translate(-50%, 30%);
   }
 `;

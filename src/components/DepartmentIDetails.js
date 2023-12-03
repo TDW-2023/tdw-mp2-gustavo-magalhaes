@@ -17,8 +17,9 @@ import Navbar from "./NavBar";
 import { Link } from "react-router-dom";
 import { LoadingCard } from "./LoadingCard";
 import FavoriteButton from "../assets/img/free-favourite-icon-2765-thumb.svg";
-import FavoriteButtonFilled from "../assets/img/filled-star.svg";
+import FavoriteButtonFilled from "../assets/img/star-filled.svg";
 import styled from "styled-components";
+import Cookies from "js-cookie";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
@@ -37,16 +38,7 @@ const DepartmentDetails = () => {
   const [departmentName, setDepartmentName] = useState("");
   const [loading, setLoading] = useState(false);
   const observer = useRef();
-  const [itemsToShow, setItemsToShow] = useState(20);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    )
-      return;
-    setItemsToShow(itemsToShow + 50);
-  };
+  const [favoriteArtworkIds, setFavoriteArtworkIds] = useState([]);
 
   const lastArtworkElementRef = useCallback(
     (node) => {
@@ -93,6 +85,32 @@ const DepartmentDetails = () => {
     fetchData();
   }, [dispatch, id]);
 
+  useEffect(() => {
+    const favoriteIdsString = Cookies.get("favoriteArtworkIds");
+    if (favoriteIdsString) {
+      const favoriteIds = JSON.parse(favoriteIdsString);
+      setFavoriteArtworkIds(favoriteIds);
+    }
+  }, []);
+
+  const handleToggleFavorite = (artworkId) => {
+    const updatedFavorites = [...favoriteArtworkIds];
+    const index = updatedFavorites.indexOf(artworkId);
+
+    if (index !== -1) {
+      updatedFavorites.splice(index, 1);
+    } else {
+      updatedFavorites.push(artworkId);
+    }
+
+    setFavoriteArtworkIds(updatedFavorites);
+    updateCookie(updatedFavorites);
+  };
+
+  const updateCookie = (favorites) => {
+    Cookies.set("favoriteArtworkIds", JSON.stringify(favorites));
+  };
+
   return (
     <div
       style={{
@@ -104,9 +122,21 @@ const DepartmentDetails = () => {
     >
       <Navbar />
       {artworks.length === 0 ? (
-        <h2>Loading...</h2>
+        <h1
+          style={{
+            padding: "0 3rem 0",
+          }}
+        >
+          Loading...
+        </h1>
       ) : (
-        <h2>Artworks in Department: {departmentName}</h2>
+        <h1
+          style={{
+            padding: "0 3rem 0",
+          }}
+        >
+          Artworks in Department: {departmentName}
+        </h1>
       )}
       {artworks.length === 0 ? (
         <ArtworkGrid>
@@ -134,6 +164,8 @@ const DepartmentDetails = () => {
                     alt="Not public domain"
                     style={{
                       transform: "scale(0.4)",
+                      position: "relative",
+                      zIndex: ""
                     }}
                   />
                   <span
@@ -151,13 +183,23 @@ const DepartmentDetails = () => {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  width: "90%"
+                  width: "90%",
                 }}
               >
                 <StyledLink to={`/artwork/${artwork.objectID}`}>
                   <ViewMoreButton>View More</ViewMoreButton>
                 </StyledLink>
-                <Link><img src={FavoriteButton} alt="Favorite button" /></Link>
+                <Link>
+                  <img
+                    src={
+                      favoriteArtworkIds.includes(artwork.objectID)
+                        ? FavoriteButtonFilled
+                        : FavoriteButton
+                    }
+                    alt="Favorite button"
+                    onClick={() => handleToggleFavorite(artwork.objectID)}
+                  />
+                </Link>
               </div>
             </ArtworkContainer>
           ))}

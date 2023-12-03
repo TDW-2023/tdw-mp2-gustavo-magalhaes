@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeContainer, BackgroundImage, UALogoImage } from "./styles";
+import { HomeContainer, BackgroundImage, UALogoImage, Author } from "./styles";
 import { CenterLinks } from "./CenterLinks";
 import Navbar from "./NavBar";
 
@@ -11,6 +11,7 @@ const Home = () => {
         src={require("../assets/img/Self_portrait_with_Felt_Hat.jpg")}
         alt="Van Gogh's self portrait"
       />
+      <Author>Gustavo Magalhães - 118278</Author>
       <CenterLinks />
       <Navbar />
       <UALogoImage
