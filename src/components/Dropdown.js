@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   NavItem,
@@ -9,6 +10,7 @@ import {
 import ChevronDown from "../assets/img/chevron-down.svg";
 
 const Dropdown = ({ items }) => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -38,12 +40,20 @@ const Dropdown = ({ items }) => {
       onKeyDown={handleKeyPress}
       tabIndex="0"
     >
-      <NavItem tabIndex="0">
+      <NavItem onClick={() => setIsOpen(!isOpen)} tabIndex="0">
         <METLogoImage
           src={require("../assets/img/MET_logo.png")}
           alt="MET's logo"
         />
-        ART Departments <img src={ChevronDown} alt="Chevron down" style={{ transform: isOpen ? 'rotate(180deg)' : 'none', transition: 'transform .4s' }} />
+        ART Departments{" "}
+        <img
+          src={ChevronDown}
+          alt="Chevron down"
+          style={{
+            transform: isOpen ? "rotate(180deg)" : "none",
+            transition: "transform .4s",
+          }}
+        />
       </NavItem>
 
       <DropdownContent open={isOpen}>
@@ -52,6 +62,21 @@ const Dropdown = ({ items }) => {
             to={`/department/${item.departmentId}`}
             tabIndex="0"
             key={item.departmentId}
+            style={{
+              backgroundColor:
+                location.pathname === `/department/${item.departmentId}`
+                  ? "transparent"
+                  : "#f3f3f3",
+              pointerEvents:
+                location.pathname === `/department/${item.departmentId}`
+                  ? "none"
+                  : "all",
+            }}
+            onClick={() => {
+              if (location.pathname !== `/department/${item.departmentId}`) {
+                setIsOpen(false);
+              }
+            }}
           >
             {item.displayName}
           </DropdownItem>
